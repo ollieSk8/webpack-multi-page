@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>about</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+</head>
+<body>
+	<h1>about pages</h1>
+	<div id="app">
+		<ul>
+			<li v-for="item in list">{{item}}</li>
+		</ul>
+
+		<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+
+		<el-dialog
+		  title="提示"
+		  :visible.sync="dialogVisible"
+		  size="tiny"
+		  :before-close="handleClose">
+		  <span>这是一段信息</span>
+		  <span slot="footer" class="dialog-footer">
+		    <el-button @click="dialogVisible = false">取 消</el-button>
+		    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+		  </span>
+		</el-dialog>
+
+	</div>
+</body>
+<script type="text/javascript" src="../dist/js/vendor.bundle.js"></script>
+<script type="text/javascript" src="../dist/js/about.bundle.js"></script>
+</html>
