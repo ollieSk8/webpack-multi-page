@@ -4,14 +4,22 @@
 	<meta charset="UTF-8">
 	<title>home</title>
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
-	<!-- <link rel="stylesheet" href="../dist/css/home.css"> -->
+	<link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+	<link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.bubble.css">
+	<script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
+	<style>
+		#editor{
+  height: 375px;
+}
+	</style>
 </head>
-<body>
+<body style="padding:40px;">
 	<h1>home pages</h1>
 	<div id="app">
-		<ul>
-			<li v-for="item in list"><a href="#">{{item}}</a></li>
-		</ul>		
+		<div id="editor">
+		 
+		</div>
+		<div v-html="content"></div>
 	</div>
 </body>
 <script type="text/javascript" src="../dist/js/vendor.bundle.js"></script>

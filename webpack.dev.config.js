@@ -5,7 +5,8 @@ module.exports ={
   entry:entry.entry,
   resolve:{
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.js',
+      'vue-quill-editor':'vue-quill-editor/src/index.js'
     },
     extensions: ['.vue','.js','.scss','.css']
   },
