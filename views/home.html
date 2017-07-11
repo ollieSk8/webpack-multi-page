@@ -8,18 +8,47 @@
 	<link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.bubble.css">
 	<script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
 	<style>
-		#editor{
-  height: 375px;
-}
-	</style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>
 </head>
 <body style="padding:40px;">
 	<h1>home pages</h1>
 	<div id="app">
-		<div id="editor">
-		 
-		</div>
-		<div v-html="content"></div>
+		<el-upload
+		  class="avatar-uploader"
+		  action="https://jsonplaceholder.typicode.com/posts/"
+		  :show-file-list="false"
+		  :on-success="handleAvatarSuccess"
+		  :before-upload="beforeAvatarUpload">
+		  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+		  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+		</el-upload>
+		<span v-show="imageUrlBol" class="help is-danger">The image field is required. </span>
+		<span v-show="isImageType" class="help is-danger">The file field must have a valid file type.</span>
+		<span v-show="isImageSize" class="help is-danger">Upload avatar picture size can not exceed 2m</span>
+        <button v-on:click="validate" type="button" class="button is-primary">Validate All</button>
 	</div>
 </body>
 <script type="text/javascript" src="../dist/js/vendor.bundle.js"></script>
