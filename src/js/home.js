@@ -8,45 +8,60 @@ new Vue({
 	data() {
       return {
         imageUrl: '',
-        imageUrlBol:false,
-        isImageType:false,
-        isImageSize:false
+        isImageMsg:false,
+        isLt2MMsg:false,
+        isRequired:false,
+        isUpload:false,
+        isFail:false,
+        isUploading:false
       };
     },
     methods: {
+      allUploadImageFalse(){
+        this.isImageMsg=false;
+        this.isLt2MMsg=false;
+        this.isRequired=false;
+        this.isFail=false;
+        this.isUploading=false;
+        this.isUpload=false;
+      },
       handleAvatarSuccess(res, file) {
-      	this.isImageType=false;
-        this.isImageSize=false;
-        this.imageUrlBol=false;
+        this.allUploadImageFalse();
+        this.isUpload=true;
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
+        const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.isImageType=true;//格式错误信息展示
-          this.imageUrlBol=false;//是否被需要隐藏
-          this.isImageSize=false;//大小限制隐藏
+        if (!isImage) {
+          this.allUploadImageFalse();
+          this.isImageMsg=true;
         }
         if (!isLt2M) {
-          this.isImageType=false;
-          this.isImageSize=true;
-          this.imageUrlBol=false;
+          this.allUploadImageFalse();
+          this.isLt2MMsg=true;
         }
-        return isJPG && isLt2M;
+        return isImage && isLt2M;
       },
-      validate() {
-	      this.$validator.validateAll().then(result => {
-	          if(this.imageUrl==''){
-	          	this.imageUrlBol=true;
-	          	this.isImageType=false;
-	          	this.isImageSize=false;
-	          }else{
-	          	this.imageUrlBol=false;
-	          }
-	      });
-	  }
+      handleAvatarFail(){
+          this.allUploadImageFalse();
+          this.isFail=true;
+      },
+      onAvatarProgress(){
+          this.allUploadImageFalse();
+          this.isUploading=true;
+      },
+      validateBeforeSubmit() {
+	     this.$validator.validateAll().then(result => {
+        if (result&&this.isUpload) {
+          console.log('From Submitted!');
+          return;
+        }
+        this.allUploadImageFalse();
+        this.isRequired=true;
+        console.log('Correct them errors!');
+      });
+	   }
     },
     components:{
     	'el-upload':Upload

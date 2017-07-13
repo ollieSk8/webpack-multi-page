@@ -36,19 +36,26 @@
 <body style="padding:40px;">
 	<h1>home pages</h1>
 	<div id="app">
-		<el-upload
-		  class="avatar-uploader"
-		  action="https://jsonplaceholder.typicode.com/posts/"
-		  :show-file-list="false"
-		  :on-success="handleAvatarSuccess"
-		  :before-upload="beforeAvatarUpload">
-		  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-		  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-		</el-upload>
-		<span v-show="imageUrlBol" class="help is-danger">The image field is required. </span>
-		<span v-show="isImageType" class="help is-danger">The file field must have a valid file type.</span>
-		<span v-show="isImageSize" class="help is-danger">Upload avatar picture size can not exceed 2m</span>
-        <button v-on:click="validate" type="button" class="button is-primary">Validate All</button>
+  <form v-on:submit.prevent="validateBeforeSubmit">
+  		<el-upload
+  		  class="avatar-uploader"
+  		  action="https://jsonplaceholder.typicode.com/posts/"
+  		  :show-file-list="false"
+  		  :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarFail"
+        :before-upload="beforeAvatarUpload"
+        :on-progress="onAvatarProgress"
+  	     >
+  		  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+  		  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+  		</el-upload>
+       <span v-if="isUploading">Uploading...</span>
+       <span v-if="isFail">Image upload failed. Please try again!</span>
+       <span v-if="isRequired">you must upload a product picture</span>
+       <span v-if="isImageMsg">Upload pictures only in JPG or PNG format!</span>
+       <span v-if="isLt2MMsg">Upload picture size must not exceed 2MB!</span>
+      <button type="submit" class="button is-primary">submit</button>
+    </form>
 	</div>
 </body>
 <script type="text/javascript" src="../dist/js/vendor.bundle.js"></script>
