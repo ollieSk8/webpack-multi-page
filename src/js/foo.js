@@ -1,7 +1,5 @@
 import Vue from 'vue/dist/vue.common.js';
-import $ from 'jquery';
-import baseUrl from './config';
-import hello from '../component/hello'
+import CountDown from './CountDown.js'
 new Vue({
 	data(){
 		return {
@@ -9,13 +7,12 @@ new Vue({
 		}
 	},
 	methods:{
-		clickMe(){
-			alert('click');
+		time_end(){
+			console.log('end');
 		}
 	},
 	created(){
-		console.log(baseUrl);
-		$('.move').css('color','#f00');
+		
 	},
-	components:{hello}
+	components:{CountDown}
 }).$mount('#app');

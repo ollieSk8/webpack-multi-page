@@ -6,12 +6,10 @@
 </head>
 <body>
 	<div id="app">
-		<hello></hello>
-		<h1>foo pages</h1>
-		<input type="text" v-model="msg">
-		{{msg}}
-		<button v-on:click="clickMe">click me</button>
-		<div class="move">move div</div>
+		<div>活动开始时间：2017-07-17 22:00:00</div>
+		<div>活动结束时间：2017-07-17 23:02:00</div>
+		<div>距离活动结束还有:</div>
+		<count-down v-on:time_end="time_end" :current-time="new Date().getTime()" :start-time="'2017-07-17 22:00:00'" :end-time="'2017-07-17 23:02:00'"></count-down>
 	</div>
 	<script type="text/javascript" src="../dist/js/vendor.bundle.js"></script>
 	<script type="text/javascript" src="../dist/js/foo.bundle.js"></script>
